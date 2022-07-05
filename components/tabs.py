@@ -3,7 +3,7 @@ from dash import dcc, html
 import dash_daq as daq
 import dash_bootstrap_components as dbc
 
-import jose.graficas_consolidado_fallecidos as josegraphs
+import components.graphs.graficas_consolidado_fallecidos as josegraphs
 
 
 

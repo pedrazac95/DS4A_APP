@@ -16,7 +16,7 @@ import joblib
 #importar anexos
 import components.Graphs as graphs
 
-import eduardo.regresion_beneficiarios as predben
+import components.graphs.regresion_beneficiarios as predben
 
 import components.Graphs as graphs
 
@@ -25,15 +25,15 @@ register_page(__name__, path="/users_prediction" , order=4 , name='User predicti
 
 
 #read data
-df_prediccion_benef = pd.read_csv('eduardo/df_prediccion_benef.csv', sep=',')
+df_prediccion_benef = pd.read_csv('data/df_prediccion_benef.csv', sep=',')
 
-departamentos = json.load(open('data/Colombia.geojson' , 'r'))
+departamentos = json.load(open('data/Colombia.geojson' , 'r',encoding="utf8"))
 for fish in departamentos['features']:
     fish['id'] = fish['properties']['NOMBRE_DPT']
 
-df_benef_depto = pd.read_csv('eduardo/df_benf_depto.csv', sep=',')
+df_benef_depto = pd.read_csv('data/df_benf_depto.csv', sep=',')
 
-model_benef = joblib.load('eduardo/model_pred_benf.data')
+model_benef = joblib.load('data/model_pred_benf.data')
 
 
 
