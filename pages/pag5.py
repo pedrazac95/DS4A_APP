@@ -13,8 +13,8 @@ import dash_bootstrap_components as dbc
 import components.Graphs as graphs
 import components.tabs as tabs
 
-import jose.graficas_consolidado_fallecidos as josegraphs
-import jose.graficas_pred_dane_ascension as josepred
+import components.graphs.graficas_consolidado_fallecidos as josegraphs
+import components.graphs.graficas_pred_dane_ascension as josepred
 
 
 register_page(__name__, path="/death_prediction" , order=5, name='Death Pedriction' )
@@ -23,8 +23,8 @@ register_page(__name__, path="/death_prediction" , order=5, name='Death Pedricti
 #fallecidos_dane = pd.read_csv('data/Fallecimientos_por_depto_DANE_2015_2021_7_deptos.csv')
 #df_benef = pd.read_csv('data/Conteo_Anual_Mens_Ubic_EdadPop.csv')
 
-ascension_mes = pd.read_csv("jose/prediccion_tasa_mes_ascension.csv")
-dane_ascension_anio = pd.read_csv("jose/prediccion_tasa_anio_dane_ascension.csv")
+ascension_mes = pd.read_csv("data/prediccion_tasa_mes_ascension.csv")
+dane_ascension_anio = pd.read_csv("data/prediccion_tasa_anio_dane_ascension.csv")
 
 
 

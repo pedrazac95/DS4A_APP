@@ -13,7 +13,7 @@ import dash_bootstrap_components as dbc
 import components.Graphs as graphs
 import components.tabs as tabs
 
-import jose.graphs as josegraphs
+import components.graphs.graphs as josegraphs
 
 
 register_page(__name__, path="/business_status" , order=1 , name='Business Status' )
@@ -22,7 +22,7 @@ register_page(__name__, path="/business_status" , order=1 , name='Business Statu
 fallecidos_dane = pd.read_csv('data/Fallecimientos_por_depto_DANE_2015_2021_7_deptos.csv')
 df_benef = pd.read_csv('data/Conteo_Anual_Mens_Ubic_EdadPop.csv')
 
-Conteo_Union = pd.read_csv('jose/conteo_anual.csv')
+Conteo_Union = pd.read_csv('data/conteo_anual.csv')
 
 layout = dbc.Container([
     dbc.Row([
