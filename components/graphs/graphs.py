@@ -20,9 +20,9 @@ def plot_totalafiliados_year_mes_deptoN(Conteo_Union, filtro):
     fig = px.line(Conteo_Union[(Conteo_Union['Year_Month']!='NA')], x='Year_Month', y="Count_CCont",color="Sucursal")
     fig.update_layout(
         margin={"r":0,"l":0,"b":0},
-        title="Plot Title",
+        #title="Plot Title",
         xaxis_title="xaxis",
-        yaxis_title="yaxis",
+        yaxis_title="Cantidad de Afiliados",
         #legend_title="Ubicación Sucursal",
         legend=dict(
             x=0,
@@ -43,9 +43,9 @@ def plot_retiros_year_mes_deptoN(Conteo_Union, filtro):
     fig = px.line(Conteo_Union[(Conteo_Union['Year_Month']!='NA')], x='Year_Month', y="Pop_Actual",color="Sucursal")
     fig.update_layout(
         margin={"r":0,"l":0,"b":0},
-        title="Plot Title",
-        xaxis_title="Time",
-        yaxis_title="Count",
+        #title="Plot Title",
+        xaxis_title=None,
+        yaxis_title="Población",
         #legend_title="Ubicación Sucursal",
         legend=dict(
             x=0,
@@ -63,9 +63,9 @@ def plot_siniestros_year_mes_deptoN(Conteo_Union, filtro):
     fig = px.line(Conteo_Union[(Conteo_Union['Year_Month']!='NA')], x='Year_Month', y="Count_Sin",color="Sucursal")
     fig.update_layout(
         margin={"r":0,"l":0,"b":0},
-        title="Plot Title",
-        xaxis_title="Time",
-        yaxis_title="Count",
+        #title="Plot Title",
+        xaxis_title=None,
+        yaxis_title="Cantidad de Fallecimientos",
         #legend_title="Ubicación Sucursal",
         legend=dict(
             x=0,
@@ -80,12 +80,12 @@ def plot_PobActual_year_mes_deptoN(Conteo_Union, filtro):
     """Esta función realiza la gráfica lineal temporal de la población actual quitando personas retiradas y muertas por departamento y Nivel Nacional
         Registrados por la empresa La Ascensión S.A.  """
     Conteo_Union = Conteo_Union[Conteo_Union['Sucursal'].isin(filtro)]
-    fig = px.line(Conteo_Union[(Conteo_Union['Year_Month']!='NA')], x='Year_Month', y="Pop_Actual",color="Sucursal")
+    fig = px.line(Conteo_Union[(Conteo_Union['Year_Month']!='NA')], x='Year_Month', y="Count_Ret",color="Sucursal")
     fig.update_layout(
         margin={"r":0,"l":0,"b":0},
-        title="Plot Title",
-        xaxis_title="Time",
-        yaxis_title="Count",
+        #title="Plot Title",
+        xaxis_title=None,
+        yaxis_title="Cantidad de Retiros",
         #legend_title="Ubicación Sucursal",
         legend=dict(
             x=0,
@@ -103,9 +103,9 @@ def plot_popSiniestros_year_mes_deptoN(Conteo_Union, filtro):
     fig = px.line(Conteo_Union[(Conteo_Union['Year_Month']!='NA')], x='Year_Month', y="Proporcion_Siniestros",color="Sucursal")
     fig.update_layout(
         margin={"r":0,"l":0,"b":0},
-        title="Plot Title",
-        xaxis_title="Time",
-        yaxis_title="Count",
+        #title="Tasa de Mortalidad La Ascensión",
+        xaxis_title=None,
+        yaxis_title="% de fallecimientos",
         #legend_title="Ubicación Sucursal",
         legend=dict(
             x=0,

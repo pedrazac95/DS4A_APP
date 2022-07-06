@@ -33,7 +33,7 @@ for fish in departamentos['features']:
 
 df_benef_depto = pd.read_csv('data/df_benf_depto.csv', sep=',')
 
-model_benef = joblib.load('data/model_pred_benf.data')
+#model_benef = joblib.load('data/model_pred_benf.data')
 
 
 
@@ -169,4 +169,4 @@ def update_prediction(valor_mensual, valor_age, valor_sexo,nombre_UEN,valor_sucu
         return 'Calculate User Predcition'
     else:
         df = predben.modelo_beneficiarios( df_prediccion_benef,valor_mensual ,valor_age, valor_sexo,nombre_UEN,valor_sucursal)
-        return model_benef.predict(df)
+        return df#model_benef.predict(df)
