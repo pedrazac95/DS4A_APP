@@ -74,11 +74,14 @@ def render_tab_content(tab_switch):
 
 @callback(
     Output(component_id='row_info_2', component_property='children'),
-    Input(component_id='business-info-tabs', component_property='value')
+    [Input(component_id='business-info-tabs', component_property='value'),
+    Input(component_id='business-tabs', component_property='value')]
 )
-def render_tab_content(tab_switch):
-    if tab_switch == "population-info":
-        return tabs.build_tab_business_info_population()
 
-    elif tab_switch == "deaths-info":
-        return tabs.build_tab_business_info_deaths()
+def render_tab_content(tab_switch,tab_switch2):
+    if tab_switch2 == "business-status":
+        if tab_switch == "population-info" :
+            return tabs.build_tab_business_info_population()
+
+        elif tab_switch == "deaths-info"  :
+            return tabs.build_tab_business_info_deaths()

@@ -180,7 +180,7 @@ def build_tab_business_info_population():
     return [
         html.Br(),
         dbc.Row([
-            dbc.Card([
+            dbc.Card([dbc.Alert("Consulte aqui información referente a la cantidad de afiliados, la cantidad de retiros y fallecimientos, población activa y la tasa de mortalidad de la entidad.\n A continuación seleccione las ubicacines a consultar:", color="primary"),
                 dcc.Dropdown(
                     id="region_status",
                     options=[
@@ -218,32 +218,32 @@ def build_tab_business_info_population():
             ])
         ]),
         dbc.Row([
-            dbc.Col([
-                dbc.Card([
-                    dcc.Graph(id='graph1_status', figure={}),
+            dbc.Col([dbc.Alert("Visualice aquí información referente a la cantidad de afiliciones mensuales", color="light"),
+                    dbc.Card([ #html.H2("Beneficiarios mensual", className="card-title"),
+                    dcc.Graph(id='graph1_status', figure={})
                 ]),
             ]),
             dbc.Col([
-                dbc.Card([
+                    dbc.Card([dbc.Alert("Visualice aquí información referente al crecimiento de la población, 'Población Activa' mensualmente ", color="light"),
                     dcc.Graph(id='graph2_status', figure={}),
                 ])
             ])
         ]),
         dbc.Row([
             dbc.Col([
-                dbc.Card([
+                    dbc.Card([dbc.Alert("Visualice aquí información referente a la cantidad de fallecimientos", color="light"),
                     dcc.Graph(id='graph3_status', figure={}),
                 ])
             ]),
             dbc.Col([
-                dbc.Card([
+                    dbc.Card([dbc.Alert("Visualice aquí información referente a la cantidad de retiros", color="light"),
                     dcc.Graph(id='graph4_status', figure={}),
                 ]),
             ]),
         ]),
         dbc.Row([
             dbc.Col([
-                dbc.Card([
+                    dbc.Card([dbc.Alert("Visualice aquí información referente Tasa de Mortalidad de La Ascensión", color="light"),
                     dcc.Graph(id='graph5_status', figure={}),
                 ])
             ],
@@ -253,28 +253,33 @@ def build_tab_business_info_population():
     ]
 
 def build_tab_business_info_deaths():
-    return [
+    return [ html.Br(),
         
         dbc.Row([
+        dbc.Alert("Consulte Aquí información referente a los registros del consolidado de fallecimientos, con información por rango de edades, año, parentescos, UEN y sus relaciones con el total de fallecidos registrados desde 2016  hasta la actualidad  ", color="primary",className='alert w-60'),
         dbc.Col([
             html.Br(),
-            dbc.Card([
+            dbc.Alert("Aquí podras observar el total de fallecimiento para cada  causa de fallecimiento (total de registros)", color="light",className='alert w-60'),
+            dbc.Card([ 
                 dcc.Graph(id='graph1_predicion_mortalidad', figure=josegraphs.barplot_causas()),
             ],
             body=True,
-            #color='primary'
+            color='light',
+            
             ),
-        ]),
+        ],width={"size": 4.4},),
         dbc.Col([
             html.Br(),
-            dbc.Card([
+            dbc.Alert("Aquí podras observar el total de  fallecimientos para cada año (total de registros)", color="light"),
+            dbc.Card([ 
                 dcc.Graph(id='graph2_predicion_mortalidad', figure=josegraphs.barplot_fallecimientos_anio()),
             ],
             body=True,
-            color='primary'),
+            color='light'),
         ]),
         dbc.Col([
             html.Br(),
+            dbc.Alert("Aquí podras observar el porcentaje de fallecidos por rango de edades siguiendo el rango definido por el DANE", color="light"),
             dbc.Card([
                 dcc.Graph(id='graph5_predicion_mortalidad', figure=josegraphs.pie_rango_edad()),
             ],
@@ -284,6 +289,7 @@ def build_tab_business_info_deaths():
     ]),
     dbc.Row([
         dbc.Col([
+            dbc.Alert("Aquí podras observar la edad de fallecimiento contra las causas de fallecimiento (total de registrados)", color="light"),
             dbc.Card([
                 dcc.Graph(id='graph3_predicion_mortalidad', figure=josegraphs.boxplot_Causas_edad()),
             ],
@@ -291,6 +297,7 @@ def build_tab_business_info_deaths():
             color='light'),
         ]),
         dbc.Col([
+            dbc.Alert("Aquí podras observar la edad de fallecimiento contra el UEN afiliado (total de registrados)", color="light"),
             dbc.Card([
             dcc.Graph(id='graph5_predicion_mortalidad', figure=josegraphs.boxplot_UEN_edad()),
             ],
@@ -300,6 +307,7 @@ def build_tab_business_info_deaths():
     ]),
     dbc.Row([
         dbc.Col([
+            dbc.Alert("Aquí podras observar la edad de fallecimiento contra el parentesco del fallecido (total de registrados)", color="light"),
             dbc.Card([
                 dcc.Graph(id='graph4_predicion_mortalidad', figure=josegraphs.boxplot_parentesco_edad()),
             ],
