@@ -17,6 +17,7 @@ import components.graphs.graficas_consolidado_fallecidos as josegraphs
 import components.graphs.graficas_pred_dane_ascension as josepred
 
 
+
 register_page(__name__, path="/death_prediction" , order=5, name='Death Pedriction' )
 
 #read data
@@ -94,3 +95,5 @@ def render_tab_content(option_selected):
     fig3 = josepred.lineplot_ascension_mes(ascension_mes, option_selected)
 
     return fig1 , fig2 , fig3
+
+

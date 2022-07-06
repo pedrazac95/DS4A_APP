@@ -14,7 +14,7 @@ register_page(__name__, path="/estimacion_costos" , order=3, name='Estimacion Co
 
 #read data
 fallecidos_dane = pd.read_csv('data/Fallecimientos_por_depto_DANE_2015_2021_7_deptos.csv')
-df_benef = pd.read_csv('data/Conteo_Anual_Mens_Ubic_EdadPop.csv')
+#df_benef = pd.read_csv('data/Conteo_Anual_Mens_Ubic_EdadPop.csv')
 
 
 layout = html.Div([

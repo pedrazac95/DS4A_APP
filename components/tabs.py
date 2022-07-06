@@ -4,6 +4,8 @@ import dash_daq as daq
 import dash_bootstrap_components as dbc
 
 import components.graphs.graficas_consolidado_fallecidos as josegraphs
+import components.graphs.FuncionesFinancieras as funfin
+
 
 
 
@@ -320,11 +322,84 @@ def build_tab_business_info_deaths():
 
 def build_tab_financial_info():
     return [
-        dbc.Col([
-           dcc.Graph(id='graph1_financial', figure={}),
-            html.Br(),
-            dcc.Graph(id='graph2_financial', figure={}),
-            html.Br(), 
+        dbc.Row([
+            dbc.Col([
+                dbc.Card([
+                    dcc.Dropdown(
+                        id="region_financial_info",
+                        options=[
+                            {"label": "NACIONAL", "value": "NACIONAL"},
+                            {"label": "ANTIOQUIA", "value": "ANTIOQUIA"},
+                            {"label": "ATLANTICO", "value": "ATLANTICO"},
+                            {"label": "BOGOTA D.C.", "value": "BOGOTA D.C."},
+                            {"label": "HUILA", "value": "HUILA"},
+                            {"label": "NARIÑO", "value": "NARIÑO"},
+                            {"label": "SANTANDER", "value": "SANTANDER"},
+                            {"label": "TOLIMA", "value": "TOLIMA"},
+                            {"label": "VALLE DEL CAUCA", "value": "VALLE DEL CAUCA"},
+                        ],
+                        value = 'NACIONAL',
+                        multi = False,
+                        #style={'width': "50%"},
+                        placeholder="Select a region",
+                    ),
+                ],
+                body=True,
+                color='light'),
+            ]),
+        ]),
+        dbc.Row([
+            dbc.Col([
+                dbc.Card([
+                    dcc.Graph(id='graph1_financial', figure={}),
+                ],
+                body=True,
+                color='light'),
+            ]),
+            dbc.Col([
+                dbc.Card([
+                    dcc.Graph(id='graph2_financial', figure={}),
+                ],
+                body=True,
+                color='light'
+                ),
+            ]),
+        ]),
+        dbc.Row([
+            dbc.Col([
+                dbc.Card([
+                    dcc.Graph(id='graph3_financial', figure={}),
+                ],
+                body=True,
+                color='light'
+                ),
+            ]),
+            dbc.Col([
+                dbc.Card([
+                    dcc.Graph(id='graph4_financial', figure={}),
+                ],
+                body=True,
+                color='light'
+                ),
+            ]),
+        ]),
+        dbc.Row([
+            dbc.Col([
+                dbc.Card([
+                    dcc.Graph(id='graph5_financial', figure=funfin.plot_contratos_hechos_year_mes_deptoN(funfin.Conteo_Union_Contratos)),
+                ],
+                body=True,
+                color='light'
+                ),
+            ]),
+            dbc.Col([
+                dbc.Card([
+                    dcc.Graph(id='graph6_financial', figure=funfin.plot_pop_Clien_Contra_year_mes_deptoN(funfin.Conteo_Union_Contratos)),
+                ],
+                body=True,
+                color='light'
+                ),
+            ]),
         ])
     ]
                 
