@@ -1,14 +1,7 @@
-import numpy                 as np
-import pandas                as pd
-import matplotlib.pyplot     as plt
-import seaborn               as sns
-import folium  #needed for interactive map
-from folium.plugins import HeatMap
-# Using plotly.express
 import plotly.express as px
 from dateutil.relativedelta import *
-import datetime as dt
-#from scipy import stats
+
+
 
 
 #Conteo_Union = pd.read_csv('conteo_anual.csv')

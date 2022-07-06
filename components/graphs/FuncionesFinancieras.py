@@ -6,6 +6,8 @@ from itertools import product
 
 df_input_proj=pd.read_excel('data/Input.xlsx',sheet_name='Input')
 df_input_proj['Date']=pd.to_datetime(df_input_proj['Date'])
+df_input_proj['DEPARTAMENTO'].replace('BOGOTA', 'BOGOTA D.C.',inplace=True)
+df_input_proj['DEPARTAMENTO'].replace('NARINO', 'NARIÑO',inplace=True)
 
 df_pasado = pd.read_csv('data/data_finanzas_ascension_pasado.csv')
 
@@ -96,12 +98,38 @@ def df_finanzas_mens(df_input_proj,delta_deathrate,delta_fare,delta_cost):
 def plot_finz_mens(df_input_proj,delta_deathrate,delta_fare,delta_cost,ubica):
     df_graph_r = df_finanzas_mens(df_input_proj,delta_deathrate,delta_fare,delta_cost)
     pop_predicted_Nac_dep_month = pd.melt(df_graph_r.drop(columns=['Date_year','Ingresos','Margen operativo']), id_vars=['Sucursal','Fechas'],var_name='Finanzas', value_name = "COP millones")
-    fig = px.bar(pop_predicted_Nac_dep_month[pop_predicted_Nac_dep_month['Sucursal']==ubica], x='Fechas', y='COP millones', color="Finanzas", title="Finanzas",category_orders={"Finanzas": ["Costos", "Gastos de ventas", "Gastos operativos", "Utilidad operativa"]},hover_name='Finanzas')
+    fig = px.bar(pop_predicted_Nac_dep_month[pop_predicted_Nac_dep_month['Sucursal']==ubica], x='Fechas', y='COP millones', color="Finanzas",category_orders={"Finanzas": ["Costos", "Gastos de ventas", "Gastos operativos", "Utilidad operativa"]},hover_name='Finanzas')
+    fig.update_layout(
+    #title="Contract Behavior",
+    xaxis_title=None,
+    yaxis_title='COP millones',
+    legend_title=None,
+    legend=dict(
+    orientation="h",
+    yanchor="top",
+    y=-0.1,
+    xanchor="right",
+    x=1
+    ))
+   
+    
     return fig
 
-def plot_finz_mens_line(df_input_proj,delta_deathrate,delta_fare,delta_cost):
+def plot_finz_mens_line(df_input_proj,delta_deathrate,delta_fare,delta_cost,ubica):
     df_graph_r = df_finanzas_mens(df_input_proj,delta_deathrate,delta_fare,delta_cost)
-    fig = px.line(df_graph_r, x='Fechas', y='Margen operativo', color="Sucursal",hover_name='Sucursal')
+    fig = px.line(df_graph_r[df_graph_r['Sucursal'].isin(ubica)], x='Fechas', y='Margen operativo', color="Sucursal",hover_name='Sucursal')
+    fig.update_layout(
+    #title="Contract Behavior",
+    xaxis_title=None,
+    yaxis_title="Margen operativo (%)",
+    legend_title=None,
+    legend=dict(
+    orientation="h",
+    yanchor="top",
+    y=-0.1,
+    xanchor="right",
+    x=1
+    ))
     return fig
 
 def plot_finz_anual(df_input_proj,delta_deathrate,delta_fare,delta_cost,ubica):
@@ -109,12 +137,24 @@ def plot_finz_anual(df_input_proj,delta_deathrate,delta_fare,delta_cost,ubica):
     df_graph_annual=df_graph_r[['Sucursal','Date_year','Ingresos','Costos','Gastos de ventas','Gastos operativos']].groupby(by=['Sucursal','Date_year']).sum().reset_index()
     df_graph_annual['Utilidad operativa']=df_graph_annual['Ingresos']-df_graph_annual['Costos']-df_graph_annual['Gastos de ventas']-df_graph_annual['Gastos operativos']
 
-    df_pasado['Utilidad operativa']=df_pasado['Ingresos']-df_pasado['Costos']-df_pasado['Gastos de ventas']-df_pasado['Gastos operativos']
-    df_graph_annual=pd.concat([df_pasado,df_graph_annual],ignore_index=True)
+    #df_pasado['Utilidad operativa']=df_pasado['Ingresos']-df_pasado['Costos']-df_pasado['Gastos de ventas']-df_pasado['Gastos operativos']
+    #df_graph_annual=pd.concat([df_pasado,df_graph_annual],ignore_index=True)
     df_graph_annual['Margen operativo']=df_graph_annual['Utilidad operativa']/df_graph_annual['Ingresos']
 
     pop_predicted_Nac = pd.melt(df_graph_annual.drop(columns=['Ingresos','Margen operativo']), id_vars=['Sucursal','Date_year'],var_name='Finanzas', value_name = "COP millones")
-    fig = px.bar(pop_predicted_Nac[pop_predicted_Nac['Sucursal']==ubica], x='Date_year', y='COP millones', color="Finanzas", title="Finanzas",category_orders={"Finanzas": ["Costos", "Gastos ventas", "Gastos operativos", "Margen operativo"]},hover_name='Finanzas')    
+    fig = px.bar(pop_predicted_Nac[pop_predicted_Nac['Sucursal']==ubica], x='Date_year', y='COP millones', color="Finanzas",category_orders={"Finanzas": ["Costos", "Gastos ventas", "Gastos operativos", "Margen operativo"]},hover_name='Finanzas')    
+    fig.update_layout(
+    #title="Contract Behavior",
+    xaxis_title=None,
+    yaxis_title='COP millones',
+    legend_title=None,
+    legend=dict(
+    orientation="h",
+    yanchor="top",
+    y=-0.1,
+    xanchor="right",
+    x=1
+    ))
     return fig
 
 def plot_finz_anual_line(df_input_proj,delta_deathrate,delta_fare,delta_cost,ubica):
@@ -122,11 +162,24 @@ def plot_finz_anual_line(df_input_proj,delta_deathrate,delta_fare,delta_cost,ubi
     df_graph_annual=df_graph_r[['Sucursal','Date_year','Ingresos','Costos','Gastos de ventas','Gastos operativos']].groupby(by=['Sucursal','Date_year']).sum().reset_index()
     df_graph_annual['Utilidad operativa']=df_graph_annual['Ingresos']-df_graph_annual['Costos']-df_graph_annual['Gastos de ventas']-df_graph_annual['Gastos operativos']
 
-    df_pasado['Utilidad operativa']=df_pasado['Ingresos']-df_pasado['Costos']-df_pasado['Gastos de ventas']-df_pasado['Gastos operativos']
-    df_graph_annual=pd.concat([df_pasado,df_graph_annual],ignore_index=True)
+    #df_pasado['Utilidad operativa']=df_pasado['Ingresos']-df_pasado['Costos']-df_pasado['Gastos de ventas']-df_pasado['Gastos operativos']
+    #df_graph_annual=pd.concat([df_pasado,df_graph_annual],ignore_index=True)
     df_graph_annual['Margen operativo']=df_graph_annual['Utilidad operativa']/df_graph_annual['Ingresos']
        
-    fig = px.line(df_graph_annual[df_graph_annual['Sucursal']==ubica], x='Date_year', y='Margen operativo', color="Sucursal",hover_name='Sucursal')
+    fig = px.line(df_graph_annual[df_graph_annual['Sucursal'].isin(ubica)], x='Date_year', y='Margen operativo', color="Sucursal",hover_name='Sucursal')
+    fig.update_layout(
+    #title="Contract Behavior",
+    xaxis_title=None,
+    yaxis_title="Margen operativo (%)",
+    legend_title=None,
+    legend=dict(
+    orientation="h",
+    yanchor="top",
+    y=-0.1,
+    xanchor="right",
+    x=1
+    )
+    )
     return fig
 
 #plot_finz_mens(df_input_proj,delta_deathrate=0,delta_fare=0,delta_cost=0,ubica='NACIONAL')
@@ -134,25 +187,39 @@ def plot_finz_anual_line(df_input_proj,delta_deathrate,delta_fare,delta_cost,ubi
 #plot_finz_anual(df_input_proj,delta_deathrate=0,delta_fare=0,delta_cost=0,ubica='NACIONAL')
 #plot_finz_anual_line(df_input_proj,delta_deathrate=0,delta_fare=0,delta_cost=0,ubica='NACIONAL')
 
-def plot_contratos_hechos_year_mes_deptoN(Conteo_Union_Contratos):
+def plot_contratos_hechos_year_mes_deptoN(Conteo_Union_Contratos,ubica):
     """Esta función realiza la gráfica lineal temporal de los contratos realizados mensualmente por departamento y Nivel Nacional
         Registrados por la empresa La Ascensión S.A.  """
-    fig = px.line(Conteo_Union_Contratos[(Conteo_Union_Contratos['Year_Month']!='NA')], x='Year_Month', y="Count_Contratos",color='Sucursal', hover_name='Sucursal')
+    fig = px.line(Conteo_Union_Contratos[Conteo_Union_Contratos['Sucursal'].isin(ubica)], x='Year_Month', y="Count_Contratos",color='Sucursal', hover_name='Sucursal')
     fig.update_layout(
-    title="Contract Behavior",
-    xaxis_title="Time",
-    yaxis_title="Count",
-    legend_title="Ubicación Sucursal",
+    #title="Contract Behavior",
+    xaxis_title=None,
+    yaxis_title="Número de contratos",
+    legend_title=None,
+    legend=dict(
+    orientation="h",
+    yanchor="top",
+    y=-0.1,
+    xanchor="right",
+    x=1
+    )
     )
     return fig
-def plot_pop_Clien_Contra_year_mes_deptoN(Conteo_Union_Contratos):
+def plot_pop_Clien_Contra_year_mes_deptoN(Conteo_Union_Contratos,ubica):
     """Esta función realiza la gráfica lineal temporal del porncetaje de clientes afiliados por los contratos realizados por departamento y Nivel Nacional
         Registrados por la empresa La Ascensión S.A.  """
-    fig = px.line(Conteo_Union_Contratos[(Conteo_Union_Contratos['Year_Month']!='NA')], x='Year_Month', y='Proporción Población x Contrato',color='Sucursal', hover_name='Sucursal')
+    fig = px.line(Conteo_Union_Contratos[Conteo_Union_Contratos['Sucursal'].isin(ubica)], x='Year_Month', y='Proporción Población x Contrato',color='Sucursal', hover_name='Sucursal')
     fig.update_layout(
-    title="Contract Customers",
-    xaxis_title="Time",
-    yaxis_title="Count",
-    legend_title="Ubicación Sucursal",
+    #title="Contract Customers",
+    xaxis_title=None,
+    yaxis_title="Número promedio de afiliados por contrato",
+    legend_title=None,
+    legend=dict(
+    orientation="h",
+    yanchor="top",
+    y=-0.1,
+    xanchor="right",
+    x=1
+    )
     )
     return fig

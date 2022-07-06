@@ -1,4 +1,3 @@
-
 from dash import dcc, html
 import dash_daq as daq
 import dash_bootstrap_components as dbc
@@ -138,51 +137,74 @@ def build_tabs_business ():
                 children=[
                     dcc.Tab(
                         id="business-info",
-                        label="Financial Information",
+                        label="Estado financiero",
                         value="financial-info",
                         #className="custom-tab",
                         #selected_className="custom-tab--selected",
                         ),
                     dcc.Tab(
                         id="business-status",
-                        label="Status",
+                        label="Estado general de la población",
                         value="business-status",
-                        #className="custom-tab",
-                        #selected_className="custom-tab--selected",
-                        ),
-                    ],
-                )
-
-def build_tab_business_info():
-    return dcc.Tabs(
+                        children=[dcc.Tabs(
                 id="business-info-tabs",
                 value="business-info",
                 className="business-tabs",
                 children=[
                     dcc.Tab(
                         id="population-info",
-                        label="Population",
+                        label="Información afiliados",
                         value="population-info",
                         className="custom-tab",
                         selected_className="custom-tab--selected",
                         ),
                     dcc.Tab(
                         id="deaths-info",
-                        label="Deaths",
+                        label="Información fallecidos",
                         value="deaths-info",
                         className="custom-tab",
                         selected_className="custom-tab--selected",
                         ),
                     ],
+                )]
+                        #className="custom-tab",
+                        #selected_className="custom-tab--selected",
+                        ),
+                    ],
                 )
-    
+
+##### Esta función debía ir como children de la función anterior, no se borra para tener en cuenta la info y como funcionaba (cuestiones académicas)
+#def build_tab_business_info():
+#    return dcc.Tabs(
+#                id="business-info-tabs",
+#                value="business-info",
+#                className="business-tabs",
+#                children=[
+#                    dcc.Tab(
+#                        id="population-info",
+#                        label="Population",
+#                        value="population-info",
+#                        className="custom-tab",
+#                        selected_className="custom-tab--selected",
+#                        ),
+#                    dcc.Tab(
+#                        id="deaths-info",
+#                        label="Deaths",
+#                        value="deaths-info",
+#                        className="custom-tab",
+#                        selected_className="custom-tab--selected",
+#                        ),
+#                    ],
+#               )
+   
 
 
 def build_tab_business_info_population():
     return [
         html.Br(),
-        dbc.Row([
-            dbc.Card([dbc.Alert("Consulte aqui información referente a la cantidad de afiliados, la cantidad de retiros y fallecimientos, población activa y la tasa de mortalidad de la entidad.\n A continuación seleccione las ubicacines a consultar:", color="primary"),
+        dbc.Row([dbc.Alert("Consulte aqui información referente a la cantidad de afiliados, la cantidad de retiros y fallecimientos, población activa y la tasa de mortalidad de la entidad.\n A continuación seleccione las ubicacines a consultar:", color="primary"),
+     
+            dbc.Card([ dbc.Label("Seleccione la o las unidades territoriales que desea visualizar:"),
                 dcc.Dropdown(
                     id="region_status",
                     options=[
@@ -220,34 +242,53 @@ def build_tab_business_info_population():
             ])
         ]),
         dbc.Row([
+        html.Hr()
+            ]),
+        dbc.Row([
             dbc.Col([dbc.Alert("Visualice aquí información referente a la cantidad de afiliciones mensuales", color="light"),
                     dbc.Card([ #html.H2("Beneficiarios mensual", className="card-title"),
                     dcc.Graph(id='graph1_status', figure={})
-                ]),
+                ],
+            body=True,
+            color='light'),
             ]),
-            dbc.Col([
-                    dbc.Card([dbc.Alert("Visualice aquí información referente al crecimiento de la población, 'Población Activa' mensualmente ", color="light"),
+            dbc.Col([dbc.Alert("Visualice aquí información referente al crecimiento de la población, 'Población Activa' mensualmente ", color="light"),
+                    dbc.Card([
                     dcc.Graph(id='graph2_status', figure={}),
-                ])
+                ],
+            body=True,
+            color='light')
             ])
         ]),
         dbc.Row([
-            dbc.Col([
-                    dbc.Card([dbc.Alert("Visualice aquí información referente a la cantidad de fallecimientos", color="light"),
-                    dcc.Graph(id='graph3_status', figure={}),
-                ])
+        html.Hr()
             ]),
-            dbc.Col([
-                    dbc.Card([dbc.Alert("Visualice aquí información referente a la cantidad de retiros", color="light"),
+        dbc.Row([
+            dbc.Col([dbc.Alert("Visualice aquí información referente a la cantidad de fallecimientos", color="light"),
+                    dbc.Card([                    
+                    dcc.Graph(id='graph3_status', figure={}),
+                ],
+            body=True,
+            color='light')
+            ]),
+            dbc.Col([dbc.Alert("Visualice aquí información referente a la cantidad de retiros", color="light"),
+                    dbc.Card([
                     dcc.Graph(id='graph4_status', figure={}),
-                ]),
+                ],
+            body=True,
+            color='light'),
             ]),
         ]),
         dbc.Row([
-            dbc.Col([
-                    dbc.Card([dbc.Alert("Visualice aquí información referente Tasa de Mortalidad de La Ascensión", color="light"),
+        html.Hr()
+            ]),
+        dbc.Row([
+            dbc.Col([dbc.Alert("Visualice aquí información referente Tasa de Mortalidad de La Ascensión", color="light"),
+                    dbc.Card([
                     dcc.Graph(id='graph5_status', figure={}),
-                ])
+                ],
+            body=True,
+            color='light')
             ],
             width={"size": 8, "offset": 2},
             ) 
@@ -256,12 +297,15 @@ def build_tab_business_info_population():
 
 def build_tab_business_info_deaths():
     return [ html.Br(),
+        dbc.Row([
+            dbc.Card([dbc.Alert("Consulte Aquí información referente a los registros del consolidado de fallecimientos, con información por rango de edades, año, parentescos, UEN y sus relaciones con el total de fallecidos registrados desde 2016  hasta la actualidad  ", color="primary",className='alert w-60'),
+            ])
+        ]),
         
         dbc.Row([
-        dbc.Alert("Consulte Aquí información referente a los registros del consolidado de fallecimientos, con información por rango de edades, año, parentescos, UEN y sus relaciones con el total de fallecidos registrados desde 2016  hasta la actualidad  ", color="primary",className='alert w-60'),
+        
         dbc.Col([
-            html.Br(),
-            dbc.Alert("Aquí podras observar el total de fallecimiento para cada  causa de fallecimiento (total de registros)", color="light",className='alert w-60'),
+            dbc.Alert("Visualice aquí el total de fallecimiento para cada  causa de fallecimiento (total de registros)", color="light",className='alert w-60'),
             dbc.Card([ 
                 dcc.Graph(id='graph1_predicion_mortalidad', figure=josegraphs.barplot_causas()),
             ],
@@ -270,9 +314,12 @@ def build_tab_business_info_deaths():
             
             ),
         ],width={"size": 4.4},),
+                     dbc.Row([
+        html.Hr()
+            ]),
         dbc.Col([
             html.Br(),
-            dbc.Alert("Aquí podras observar el total de  fallecimientos para cada año (total de registros)", color="light"),
+            dbc.Alert("Visualice aquí el total de  fallecimientos para cada año (total de registros)", color="light"),
             dbc.Card([ 
                 dcc.Graph(id='graph2_predicion_mortalidad', figure=josegraphs.barplot_fallecimientos_anio()),
             ],
@@ -281,7 +328,7 @@ def build_tab_business_info_deaths():
         ]),
         dbc.Col([
             html.Br(),
-            dbc.Alert("Aquí podras observar el porcentaje de fallecidos por rango de edades siguiendo el rango definido por el DANE", color="light"),
+            dbc.Alert("Visualice aquí el porcentaje de fallecidos por rango de edades siguiendo el rango definido por el DANE", color="light"),
             dbc.Card([
                 dcc.Graph(id='graph5_predicion_mortalidad', figure=josegraphs.pie_rango_edad()),
             ],
@@ -289,9 +336,13 @@ def build_tab_business_info_deaths():
             color='light'),
         ]),
     ]),
+
+     dbc.Row([
+        html.Hr()
+            ]),
     dbc.Row([
         dbc.Col([
-            dbc.Alert("Aquí podras observar la edad de fallecimiento contra las causas de fallecimiento (total de registrados)", color="light"),
+            dbc.Alert("Visualice aquí la edad de fallecimiento contra las causas de fallecimiento (total de registrados)", color="light"),
             dbc.Card([
                 dcc.Graph(id='graph3_predicion_mortalidad', figure=josegraphs.boxplot_Causas_edad()),
             ],
@@ -299,7 +350,7 @@ def build_tab_business_info_deaths():
             color='light'),
         ]),
         dbc.Col([
-            dbc.Alert("Aquí podras observar la edad de fallecimiento contra el UEN afiliado (total de registrados)", color="light"),
+            dbc.Alert("Visualice aquí la edad de fallecimiento contra el UEN afiliado (total de registrados)", color="light"),
             dbc.Card([
             dcc.Graph(id='graph5_predicion_mortalidad', figure=josegraphs.boxplot_UEN_edad()),
             ],
@@ -307,9 +358,12 @@ def build_tab_business_info_deaths():
             color='light'),
         ])
     ]),
+         dbc.Row([
+        html.Hr()
+            ]),
     dbc.Row([
         dbc.Col([
-            dbc.Alert("Aquí podras observar la edad de fallecimiento contra el parentesco del fallecido (total de registrados)", color="light"),
+            dbc.Alert("Visualice aquí la edad de fallecimiento contra el parentesco del fallecido (total de registrados)", color="light"),
             dbc.Card([
                 dcc.Graph(id='graph4_predicion_mortalidad', figure=josegraphs.boxplot_parentesco_edad()),
             ],
@@ -323,8 +377,9 @@ def build_tab_business_info_deaths():
 def build_tab_financial_info():
     return [
         dbc.Row([
+            dbc.Alert("Consulte Aquí información referente a Ingresos, Costos, Margen de Operación, Utilidades. En la parte final puede encontra información referente al número de contratos y la cantidad de afiliados por contrato. ", color="primary",className='alert w-60'),
             dbc.Col([
-                dbc.Card([
+                dbc.Card([dbc.Label("Seleccione la unidad territorial que desea visualizar:"),
                     dcc.Dropdown(
                         id="region_financial_info",
                         options=[
@@ -348,25 +403,96 @@ def build_tab_financial_info():
                 color='light'),
             ]),
         ]),
+        dbc.Row([dbc.Label("Ingrese valores de crecimiento o de decrecimiento en porcentaje (%) para predicción por defecto estos son 0"),
+                dbc.Col([dbc.Card([dbc.Label("Tasa de mortalidad:"),
+                dbc.Input(
+                    id="porc_tasa_mortalidad",
+                    placeholder="Asigne el % de crecimiento o decrecimiento",
+                    value = None,
+                    type="number",
+                    #style={'width': "50%"},
+                    ),
+                html.Br(),
+                ],
+                body=True,
+                color='light')
+                ]),
+            dbc.Col([dbc.Card([dbc.Label("Tarifa de suscripción: ($19000 por defecto)"),          
+                dbc.Input(
+                    id="porc_val_susc", 
+                    placeholder="Asigne el % de crecimiento o decrecimiento", 
+                    value = None,
+                    type="number",
+                    #min=-1, max=1, step=0.1
+                    ),
+                html.Br(),
+                ],
+                body=True,
+                color='light')
+                ]),
+            dbc.Col([dbc.Card([dbc.Label("Costo de servicio:($2165147 por defecto)"),       
+                dbc.Input(
+                    id="porc_cost_muerte", 
+                    placeholder="Asigne el % de crecimiento o decrecimiento", 
+                    value = None,
+                    type="number",
+                    #min=-1, max=1, step=0.1
+                    ),
+                html.Br(),
+                ],
+                body=True,
+                color='light')
+            ])
+        ]),
+
         dbc.Row([
-            dbc.Col([
+            dbc.Col([dbc.Alert("Visualice aquí información mensual sobre los ingresos, costos, gastos y utilidad", color="light"),
                 dbc.Card([
                     dcc.Graph(id='graph1_financial', figure={}),
                 ],
                 body=True,
                 color='light'),
             ]),
-            dbc.Col([
+            dbc.Col([dbc.Alert("Visualice aquí información anual sobre los ingresos, costos, gastos y utilidad", color="light"),
                 dbc.Card([
                     dcc.Graph(id='graph2_financial', figure={}),
                 ],
                 body=True,
-                color='light'
-                ),
+                color='light')
+            ])
+        ]),
+
+        dbc.Row([
+            html.Hr()
+            ]),
+        dbc.Row([
+            dbc.Col([
+                dbc.Card([dbc.Label("Seleccione la o las unidades territoriales que desea visualizar:"),
+                    dcc.Dropdown(
+                        id="region_financial_info2",
+                        options=[
+                            {"label": "NACIONAL", "value": "NACIONAL"},
+                            {"label": "ANTIOQUIA", "value": "ANTIOQUIA"},
+                            {"label": "ATLANTICO", "value": "ATLANTICO"},
+                            {"label": "BOGOTA D.C.", "value": "BOGOTA D.C."},
+                            {"label": "HUILA", "value": "HUILA"},
+                            {"label": "NARIÑO", "value": "NARIÑO"},
+                            {"label": "SANTANDER", "value": "SANTANDER"},
+                            {"label": "TOLIMA", "value": "TOLIMA"},
+                            {"label": "VALLE DEL CAUCA", "value": "VALLE DEL CAUCA"},
+                        ],
+                        value = ['NACIONAL'],
+                        multi = True,
+                        #style={'width': "50%"},
+                        placeholder="Select a region",
+                    ),
+                ],
+                body=True,
+                color='light'),
             ]),
         ]),
         dbc.Row([
-            dbc.Col([
+            dbc.Col([dbc.Alert("Visualice aquí información mensual referente al Margen operativo", color="light"),
                 dbc.Card([
                     dcc.Graph(id='graph3_financial', figure={}),
                 ],
@@ -374,7 +500,7 @@ def build_tab_financial_info():
                 color='light'
                 ),
             ]),
-            dbc.Col([
+            dbc.Col([dbc.Alert("Visualice aquí información anual referente al Margen operativo", color="light"),
                 dbc.Card([
                     dcc.Graph(id='graph4_financial', figure={}),
                 ],
@@ -384,17 +510,17 @@ def build_tab_financial_info():
             ]),
         ]),
         dbc.Row([
-            dbc.Col([
+            dbc.Col([dbc.Alert("Visualice aquí información mensual referente número de contratos", color="light"),
                 dbc.Card([
-                    dcc.Graph(id='graph5_financial', figure=funfin.plot_contratos_hechos_year_mes_deptoN(funfin.Conteo_Union_Contratos)),
+                    dcc.Graph(id='graph5_financial', figure={}),
                 ],
                 body=True,
                 color='light'
                 ),
             ]),
-            dbc.Col([
+            dbc.Col([dbc.Alert("Visualice aquí información mensual referente al promedio de personas afiliadas por cada contrato", color="light"),
                 dbc.Card([
-                    dcc.Graph(id='graph6_financial', figure=funfin.plot_pop_Clien_Contra_year_mes_deptoN(funfin.Conteo_Union_Contratos)),
+                    dcc.Graph(id='graph6_financial', figure={}),
                 ],
                 body=True,
                 color='light'
@@ -402,4 +528,4 @@ def build_tab_financial_info():
             ]),
         ])
     ]
-                
+

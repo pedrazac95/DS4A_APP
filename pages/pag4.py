@@ -1,11 +1,11 @@
 #libraries
-from multiprocessing.sharedctypes import Value
+
 import pandas as pd
 
 from dash_labs.plugins.pages import register_page
 
 from dash import  dcc, html, Input, Output, callback
-import plotly.express as px
+
 import dash_bootstrap_components as dbc
 
 import json
@@ -13,15 +13,12 @@ import json
 import joblib
 
 
-#importar anexos
-import components.Graphs as graphs
-
 import components.graphs.regresion_beneficiarios as predben
 
-import components.Graphs as graphs
 
 
-register_page(__name__, path="/users_prediction" , order=4 , name='User prediction')
+
+register_page(__name__, path="/users_prediction" , order=4 , name='Predicción de usuarios')
 
 
 #read data
@@ -33,42 +30,52 @@ for fish in departamentos['features']:
 
 df_benef_depto = pd.read_csv('data/df_benf_depto.csv', sep=',')
 
-#model_benef = joblib.load('data/model_pred_benf.data')
+model_benef = joblib.load('data/model_pred_benf.data')
 
 
 
 
 layout = dbc.Container([
     dbc.Row([
+        dbc.Col([
+            dbc.Card([ dbc.Alert("Consulte aqui información referente a las predicciones de la cantidad de beneficiarios potenciales en un contrato, dadas las caracaterísticas del titular del contrato, tales como mes de inscripción, edad, genero, categoría de trabajo y unidad territorial ", color="primary")])
+        ])]),
+
+    dbc.Row([
           
         dbc.Col([
-            dbc.Label("Input data for prediction"),
+            html.Br(),
+            dbc.Alert("Ingrese los datos para la predicción de ususarios: ",color="light"),
             html.Br(),
             html.Br(),
+            dbc.Label("Ingrese un mes del 1 al 12:  "),
             dbc.Input(
                 id="valor_mensual",
-                placeholder="Select a monthly value",
+                placeholder="Ingrese el mes ",
                 value = None,
                 #style={'width': "50%"},
                 ),
             html.Br(),
+            dbc.Label("Ingrese la edad del titular en años: "),
             dbc.Input(
                 id="valor_age", 
-                placeholder="Enter age", 
+                placeholder="Ingrese la edad", 
                 type="number",
                 min=0, max=120, step=1),
             html.Br(),
+            dbc.Label("Seleccione género del titular: "),
             dbc.Select(
                 id="valor_sexo",
                 options=[
                     {"label": "Masculino", "value": "M"},
                     {"label": "Femenino", "value": "F"},
                     ],
-                value = None,
+                value = "M",
                 #style={'width': "50%"},
-                placeholder="Select a genre",
+                placeholder="Seleccione género del titular",
                 ),
             html.Br(),
+            dbc.Label("Selecciona una categoría: "),
             dbc.Select(
                 id="nombre_UEN",
                 options=[
@@ -77,11 +84,12 @@ layout = dbc.Container([
                     {"label": "EMPRESARIAL", "value": "EMPRESARIAL"},
                     {"label": "FUERZAS MILITARES", "value": "FUERZAS MILITARES"},
                     ],
-                value = None,
+                value = "EMPRESARIAL",
                 #style={'width': "50%"},
-                placeholder="Select a category",
+                placeholder="Selecciona una categoría",
                 ),
             html.Br(),
+            dbc.Label("Seleccione unidad territorial: "),
             dbc.Select(
                 id="valor_sucursal",
                 options=[
@@ -117,9 +125,9 @@ layout = dbc.Container([
                     {"label": "Buenaventura", "value": "Buenaventura"},
                     {"label": "Cajamarca", "value": "Cajamarca"},
                     ],
-                value = None,
+                value = "Cali",
                 #style={'width': "50%"},
-                placeholder="Select a zone",
+                placeholder="Seleccione unidad territorial",
                 ),
             ]
             ,width=3
@@ -135,7 +143,7 @@ layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             html.Div([
-                dbc.Button("Calculate Prediction", id='calculate_prediction' ,color="success", className="me-1", outline=True, n_clicks=0),
+                dbc.Button("Calcular predicción", id='calculate_prediction' ,color="success", className="me-1", outline=True, n_clicks=0),
                 ],
                 className="d-grid gap-2 d-md-flex justify-content-md-center"
                 ),
@@ -169,4 +177,4 @@ def update_prediction(valor_mensual, valor_age, valor_sexo,nombre_UEN,valor_sucu
         return 'Calculate User Predcition'
     else:
         df = predben.modelo_beneficiarios( df_prediccion_benef,valor_mensual ,valor_age, valor_sexo,nombre_UEN,valor_sucursal)
-        return df#model_benef.predict(df)
+        return model_benef.predict(df)

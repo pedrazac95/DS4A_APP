@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 #Prediction model
-model_pred_benf.data
+data/model_pred_benf.data
 #
