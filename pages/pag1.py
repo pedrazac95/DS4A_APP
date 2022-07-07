@@ -18,7 +18,7 @@ import components.graphs.FuncionesFinancieras as funfin
 
 
 
-register_page(__name__, path="/business_status" , order=1 , name='Estado del negocio' )
+#register_page(__name__, path="/business_status" , order=1 , name='Estado del negocio' )
 
 #read data
 #fallecidos_dane = pd.read_csv('data/Fallecimientos_por_depto_DANE_2015_2021_7_deptos.csv')
