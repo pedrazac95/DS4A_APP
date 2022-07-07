@@ -63,20 +63,20 @@ def df_finanzas_mens(df_input_proj,delta_deathrate,delta_fare,delta_cost):
         #Income estimation
         temp = subscription_fare*(1+delta_fare)
         for x in customers:
-            income_pry.concat((x * titularbeneficiaries * temp) *(1+Other_income)*ConvertMillion)
+            income_pry.append((x * titularbeneficiaries * temp) *(1+Other_income)*ConvertMillion)
         
         #Costs estimation 
         w=0
         temp2=death_cost*(1+delta_cost)
         for x in death_rate:
-            cost_pry.concat(temp2*(x*(1+delta_deathrate))*customers[w]*ConvertMillion)
+            cost_pry.append(temp2*(x*(1+delta_deathrate))*customers[w]*ConvertMillion)
             w=w+1
 
         #sales & operative expenses estimation & Operative expenses estimation 
         z=0
         while z < len(income_pry):
-            sales_exp_pry.concat(income_pry[z]*sales_expenses_incomeproportion)
-            operative_exp_pry.concat(income_pry[z]*Operative_expenses_incomeproportion)
+            sales_exp_pry.append(income_pry[z]*sales_expenses_incomeproportion)
+            operative_exp_pry.append(income_pry[z]*Operative_expenses_incomeproportion)
             z=z+1
 
         return (income_pry, cost_pry, sales_exp_pry, operative_exp_pry)
@@ -89,7 +89,7 @@ def df_finanzas_mens(df_input_proj,delta_deathrate,delta_fare,delta_cost):
         respuesta=projection(np.array(df_input_proj[df_input_proj['DEPARTAMENTO']== i]['DeathRate']),np.array(df_input_proj[df_input_proj['DEPARTAMENTO']== i]['Beneficiarios']))
         df = pd.DataFrame({'Ingresos': respuesta[0], 'Costos': respuesta[1],'Gastos de ventas': respuesta[2], 'Gastos operativos': respuesta[3]})
         DataMerge=pd.concat([DataMerge,df], axis=1)
-        df_graph=df_graph.concat(DataMerge)
+        df_graph=df_graph.append(DataMerge)
     df_graph['Utilidad operativa']=df_graph['Ingresos']-df_graph['Costos']-df_graph['Gastos de ventas']-df_graph['Gastos operativos']
     df_graph['Margen operativo']=df_graph['Utilidad operativa']/df_graph['Ingresos']
 
