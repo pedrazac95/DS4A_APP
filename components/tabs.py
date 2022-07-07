@@ -3,92 +3,92 @@ import dash_daq as daq
 import dash_bootstrap_components as dbc
 
 import components.graphs.graficas_consolidado_fallecidos as josegraphs
-import components.graphs.FuncionesFinancieras as funfin
+#import components.graphs.FuncionesFinancieras as funfin
 
 
 
 
-def build_tabs():
-    return html.Div(
-        id="tabs",
-        className="tabs",
-        children=[
-            dcc.Tabs(
-                id="app-tabs",
-                value="prediction_data",
-                className="custom-tabs",
-                children=[
-                    dcc.Tab(
-                        id="prediction_data_tab",
-                        label="Pedriction Data",
-                        value="prediction_data",
-                        className="custom-tab",
-                        selected_className="custom-tab--selected",
-                    ),
-                    dcc.Tab(
-                        id="Prediction_result_tab",
-                        label="Prediction Result",
-                        value="prediction_result",
-                        className="custom-tab",
-                        selected_className="custom-tab--selected",
-                    ),
-                ],
-            )
-        ],
-    )
+#def build_tabs():
+ #   return html.Div(
+  #      id="tabs",
+   #     className="tabs",
+    #    children=[
+     #       dcc.Tabs(
+      #          id="app-tabs",
+       #         value="prediction_data",
+        #        className="custom-tabs",
+         #       children=[
+          #          dcc.Tab(
+           #             id="prediction_data_tab",
+            #            label="Pedriction Data",
+             #           value="prediction_data",
+              #          className="custom-tab",
+               #         selected_className="custom-tab--selected",
+                #    ),
+                 #   dcc.Tab(
+                  #      id="Prediction_result_tab",
+                   #     label="Prediction Result",
+                    #    value="prediction_result",
+                     #   className="custom-tab",
+                      #  selected_className="custom-tab--selected",
+                    #),
+                #],
+            #)
+        #],
+   # )
 
-def build_tab_1():
-    return [
-        # Manually select metrics
-        html.Div(
-            id="set-input-data-container",
-            # className='twelve columns',
-            children=html.P(
-                "Set input data for the model"
-            ),
-        ),
-        html.Div(
-            id="settings-menu",
-            children=[
-                html.Div(
-                    id="data-select-menu",
-                    # className='five columns',
-                    children=[
-                        html.Label(id="data-select-title", children="Select Data"),
-                        html.Br(),
-                        dcc.Input(
-                            id="Data-select-input-1",
-                            type ='number',
-                            placeholder="input type number " ,
-                                )                     
-                            ],
-                        ),  
-                
-                html.Div(
-                    id="value-setter-menu",
+#def build_tab_1():
+ #   return [
+  #      # Manually select metrics
+   #     html.Div(
+    #        id="set-input-data-container",
+     #       # className='twelve columns',
+      #      children=html.P(
+       #         "Set input data for the model"
+        #    ),
+        #),
+        #html.Div(
+         #   id="settings-menu",
+          #  children=[
+           #     html.Div(
+            #        id="data-select-menu",
+             #       # className='five columns',
+              #      children=[
+               #         html.Label(id="data-select-title", children="Select Data"),
+                #        html.Br(),
+                 #       dcc.Input(
+                  #          id="Data-select-input-1",
+                   #         type ='number',
+                    #        placeholder="input type number " ,
+                     #           )                     
+                      #      ],
+                       # ),  
+                #
+                #html.Div(
+                 #   id="value-setter-menu",
                     # className='six columns',
-                    children=[
-                        html.Div(id="value-setter-panel"),
-                        html.Br(),
-                        html.Div(
-                            id="button-div",
-                            children=[
-                                html.Button("Update", id="value-setter-set-btn"),
-                                html.Button(
-                                    "View current setup",
-                                    id="value-setter-view-btn",
-                                    n_clicks=0,
-                                ),
-                            ],
-                        ),
-                        html.Div(
-                            id="value-setter-view-output", className="output-datatable"
-                        ),
-                    ],
-                ),
-            ],
-        ),
-    ]
+                  #  children=[
+                   #     html.Div(id="value-setter-panel"),
+                    #    html.Br(),
+                     #   html.Div(
+                      #      id="button-div",
+                       #     children=[
+                        #        html.Button("Update", id="value-setter-set-btn"),
+                         #       html.Button(
+                          #          "View current setup",
+                           #         id="value-setter-view-btn",
+                            #        n_clicks=0,
+                             #   ),
+                            #],
+                        #),
+                        #html.Div(
+                       #     id="value-setter-view-output", className="output-datatable"
+                       # ),
+                    #],
+                #),
+            #],
+        #),
+   # ]
 
 
 def build_quick_stats_panel():

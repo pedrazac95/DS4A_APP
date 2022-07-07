@@ -55,15 +55,16 @@ layout = dbc.Container([
         html.Hr()
             ]),
     dbc.Row([
-        dbc.Col([dbc.Alert("Visualice aquí información referente a la predicción la tasa de mortalidad ANUAL, a nivel Nacional con datos del DANE  ", color="light"),
-            dbc.Card([
-                dcc.Graph(id='graph1_pred_dane', figure={}),
-            ],
-            body=True,
-            color='light'),
-            dbc.Row([
-        html.Hr()
-            ]),  dbc.Alert("Visualice aquí información referente a la predicción la tasa de mortalidad ANUAL, a nivel organizacional con datos de la empresa", color="light"),
+        dbc.Col([#dbc.Alert("Visualice aquí información referente a la predicción la tasa de mortalidad ANUAL, a nivel Nacional con datos del DANE  ", color="light"),
+            #dbc.Card([
+             #   dcc.Graph(id='graph1_pred_dane', figure={}),
+            #],
+            #body=True,
+            #color='light'),
+         #   dbc.Row([
+        #html.Hr()
+            #]),
+              dbc.Alert("Visualice aquí información referente a la predicción la tasa de mortalidad ANUAL, a nivel organizacional con datos de la empresa", color="light"),
             dbc.Card([
                 dcc.Graph(id='graph2_pred_dane', figure={}),
             ],
@@ -88,16 +89,16 @@ layout = dbc.Container([
 # ------------------------------------------------------------------------------
 # Connect the Plotly graphs with Dash Components
 @callback(
-    [Output("graph1_pred_dane", "figure"),
+    [#Output("graph1_pred_dane", "figure"),
     Output("graph2_pred_dane", "figure"),
     Output("graph3_pred_ascencion", "figure")],
     [Input("region_death_prediction",  "value")],
 )
 def render_tab_content(option_selected):
-    fig1 = josepred.lineplot_dane_anio(dane_ascension_anio, option_selected)
+    #fig1 = josepred.lineplot_dane_anio(dane_ascension_anio, option_selected)
     fig2 = josepred.lineplot_ascension_anio(dane_ascension_anio, option_selected)
     fig3 = josepred.lineplot_ascension_mes(ascension_mes, option_selected)
 
-    return fig1 , fig2 , fig3
+    return  fig2 , fig3
 
 

@@ -1,7 +1,7 @@
 #libraries
 
 import pandas as pd
-
+import numpy as np 
 from dash_labs.plugins.pages import register_page
 
 from dash import  dcc, html, Input, Output, callback
@@ -30,7 +30,7 @@ for fish in departamentos['features']:
 
 df_benef_depto = pd.read_csv('data/df_benf_depto.csv', sep=',')
 
-model_benef = joblib.load('data/model_pred_benf.data')
+model_benef = joblib.load('data/model_pred_benf.pkl')
 
 
 
@@ -47,11 +47,10 @@ layout = dbc.Container([
             html.Br(),
             dbc.Alert("Ingrese los datos para la predicción de ususarios: ",color="light"),
             html.Br(),
-            html.Br(),
-            dbc.Label("Ingrese un mes del 1 al 12:  "),
+            dbc.Label("Ingrese el valor mensual a pagar (en COP) del contrato:   "),
             dbc.Input(
                 id="valor_mensual",
-                placeholder="Ingrese el mes ",
+                placeholder="Ingrese valor mensual ",
                 value = None,
                 #style={'width': "50%"},
                 ),
@@ -140,19 +139,19 @@ layout = dbc.Container([
             ,width=9
             ),
         ]),
+        html.Br(),
     dbc.Row([
         dbc.Col([
             html.Div([
-                dbc.Button("Calcular predicción", id='calculate_prediction' ,color="success", className="me-1", outline=True, n_clicks=0),
+                dbc.Button("Calcular predicción", id='calculate_prediction' ,color="success", className="me-1", outline=False, n_clicks=0),
                 ],
                 className="d-grid gap-2 d-md-flex justify-content-md-center"
                 ),
             html.Br(),
             #dbc.Alert(color="success", id= 'alert_prediction'),
-            html.Span(id="example-output", style={"verticalAlign": "middle"}),
         ]
         ,width=3
-        )          
+        ), dbc.Col(html.H3(id="example-output", style={"verticalAlign": "middle"}))          
     ])
 ])
     
@@ -162,7 +161,8 @@ layout = dbc.Container([
 # ------------------------------------------------------------------------------
 # Connect the Plotly graphs with Dash Components
 @callback(
-    Output(component_id='example-output', component_property='children'),
+    [Output(component_id='example-output', component_property='children'),
+    Output(component_id='calculate_prediction', component_property='n_clicks')],
     [
     Input(component_id='valor_mensual', component_property='value'),
     Input(component_id='valor_age', component_property='value'),
@@ -173,8 +173,13 @@ layout = dbc.Container([
     ]
 )
 def update_prediction(valor_mensual, valor_age, valor_sexo,nombre_UEN,valor_sucursal, n):
-    if n is None:
-        return 'Calculate User Predcition'
+    if n == 0:
+        return ['Aquí obtendrá el valor de la predicción','porque']
     else:
-        df = predben.modelo_beneficiarios( df_prediccion_benef,valor_mensual ,valor_age, valor_sexo,nombre_UEN,valor_sucursal)
-        return model_benef.predict(df)
+        df_1 = predben.modelo_beneficiarios( df_prediccion_benef,int(valor_mensual) ,valor_age, valor_sexo,nombre_UEN,valor_sucursal)
+        value= model_benef.predict(df_1)
+        print(value)
+        res = ["La cantidad de usuarios a afiliar en este contrato es de:  {}".format(round(value)),"porque!!"]
+      
+       
+        return res,0

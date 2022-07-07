@@ -21,7 +21,7 @@ import components.graphs.FuncionesFinancieras as funfin
 register_page(__name__, path="/business_status" , order=1 , name='Estado del negocio' )
 
 #read data
-fallecidos_dane = pd.read_csv('data/Fallecimientos_por_depto_DANE_2015_2021_7_deptos.csv')
+#fallecidos_dane = pd.read_csv('data/Fallecimientos_por_depto_DANE_2015_2021_7_deptos.csv')
 #df_benef = pd.read_csv('data/Conteo_Anual_Mens_Ubic_EdadPop.csv')
 
 Conteo_Union = pd.read_csv('data/Conteo_Anual_Mens_Pop_Ubic_TotalNacional.csv')
