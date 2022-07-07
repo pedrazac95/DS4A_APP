@@ -1,6 +1,6 @@
 #libraries
 
-from turtle import reset
+#from turtle import reset
 import pandas as pd
 import numpy as np 
 from dash_labs.plugins.pages import register_page
