@@ -3,7 +3,7 @@ import pandas as pd
 #import plotly.graph_objects as go
 
 import dash
-from dash import Dash, dcc, html, Input, Output
+from dash import Dash, html
 import dash_labs as dl
 
 import dash_bootstrap_components as dbc
@@ -24,7 +24,7 @@ PIB_depto = pd.read_excel('data/PIB_depto_2015_2022.xlsx') #PIB por departamento
 
 navbar1 = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink( "Inicio", href="/inicio")),
+        dbc.NavItem(dbc.NavLink( "Inicio", href="/")),
         dbc.DropdownMenu(
             children=[
                 dbc.DropdownMenuItem(page["name"], href=page["path"])
@@ -39,7 +39,7 @@ navbar1 = dbc.NavbarSimple(
             direction="start",
         ),
     ],
-    brand="Vital Measurments for insurance company",
+    brand="T-21 Multiverse",
     brand_href="#",
     color="primary",
     dark=True,

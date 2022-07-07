@@ -234,7 +234,7 @@ def build_tab_business_info_population():
                         {"label": "VALLE DEL CAUCA", "value": "VALLE DEL CAUCA"},
                         {"label": "NO DISPONIBLE", "value": "NO DISPONIBLE"},
                     ],
-                    value = [],
+                    value = ["NACIONAL"],
                     multi = True,
                     #style={'width': "50%"},
                     placeholder="Select a region",
@@ -425,6 +425,7 @@ def build_tab_financial_info():
                     type="number",
                     #min=-1, max=1, step=0.1
                     ),
+                    dbc.Label(children="Tarifa de suscripción",id='delta_val_susc',color='dodgerblue'),
                 html.Br(),
                 ],
                 body=True,
@@ -438,6 +439,7 @@ def build_tab_financial_info():
                     type="number",
                     #min=-1, max=1, step=0.1
                     ),
+                    dbc.Label(children="Costo de servicio",id='delta_cos_fun',color='dodgerblue'),
                 html.Br(),
                 ],
                 body=True,
@@ -528,4 +530,6 @@ def build_tab_financial_info():
             ]),
         ])
     ]
+
+
 

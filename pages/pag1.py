@@ -107,7 +107,9 @@ def render_tab_content(tab_switch,tab_switch2):
 
 @callback(
 [Output("graph1_financial", "figure"),
-Output("graph2_financial", "figure")],
+Output("graph2_financial", "figure"),
+Output("delta_val_susc", "children"),
+Output("delta_cos_fun", "children")],
 [Input("region_financial_info",  "value"),
 Input("porc_tasa_mortalidad",  "value"),
 Input("porc_val_susc",  "value"),
@@ -123,19 +125,30 @@ def render_tab_content(option_selected,porc_tasa_mortalidad,porc_val_susc,porc_c
     
     fig1 = funfin.plot_finz_mens(funfin.df_input_proj,porc_tasa_mortalidad,porc_val_susc,porc_cost_muerte, option_selected )
     fig2 = funfin.plot_finz_anual(funfin.df_input_proj,porc_tasa_mortalidad,porc_val_susc,porc_cost_muerte, option_selected )
-
-    return fig1 , fig2
+    data1 = funfin.VariacionDelta_pago(porc_val_susc)
+    data2 = funfin.VariacionDelta_servicio(porc_cost_muerte)
+    return fig1 , fig2, data1, data2
 
 @callback(
 [Output("graph3_financial", "figure"),
 Output("graph4_financial", "figure"),
 Output("graph5_financial", "figure"),
 Output("graph6_financial", "figure")],
-[Input("region_financial_info2",  "value")],
+[Input("region_financial_info2",  "value"),
+Input("porc_tasa_mortalidad",  "value"),
+Input("porc_val_susc",  "value"),
+Input("porc_cost_muerte",  "value")],
 )
-def render_tab_content(option_selected):
-    fig3 = funfin.plot_finz_mens_line(funfin.df_input_proj,0,0,0, option_selected)
-    fig4 = funfin.plot_finz_anual_line(funfin.df_input_proj,0,0,0, option_selected)
+def render_tab_content(option_selected,porc_tasa_mortalidad,porc_val_susc,porc_cost_muerte):
+    if porc_tasa_mortalidad==None:
+        porc_tasa_mortalidad=0
+    if porc_val_susc==None:
+        porc_val_susc=0
+    if porc_cost_muerte==None:
+        porc_cost_muerte=0
+
+    fig3 = funfin.plot_finz_mens_line(funfin.df_input_proj,porc_tasa_mortalidad,porc_val_susc,porc_cost_muerte, option_selected)
+    fig4 = funfin.plot_finz_anual_line(funfin.df_input_proj,porc_tasa_mortalidad,porc_val_susc,porc_cost_muerte, option_selected)
     fig5 = funfin.plot_contratos_hechos_year_mes_deptoN(funfin.Conteo_Union_Contratos, option_selected)
     fig6 = funfin.plot_pop_Clien_Contra_year_mes_deptoN(funfin.Conteo_Union_Contratos, option_selected)
 

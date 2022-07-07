@@ -31,7 +31,7 @@ def boxplot_parentesco_edad():
 
 def boxplot_UEN_edad(): 
     fig = px.box(df_personas, x="UEN", y="Edad")
-    fig.update_layout(margin={"r":0,"l":0,"b":0},  xaxis_title="")
+    fig.update_layout(margin={"r":0,"l":0,"b":0},  xaxis_title="UEN del fallecido")
     return fig 
 
 def pie_rango_edad():
