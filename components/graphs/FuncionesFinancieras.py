@@ -69,7 +69,7 @@ def df_finanzas_mens(df_input_proj,delta_deathrate,delta_fare,delta_cost):
         w=0
         temp2=death_cost*(1+delta_cost)
         for x in death_rate:
-            cost_pry.append(temp2*x*customers[w]*ConvertMillion)
+            cost_pry.append(temp2*(x*(1+delta_deathrate))*customers[w]*ConvertMillion)
             w=w+1
 
         #sales & operative expenses estimation & Operative expenses estimation 
@@ -223,3 +223,13 @@ def plot_pop_Clien_Contra_year_mes_deptoN(Conteo_Union_Contratos,ubica):
     )
     )
     return fig
+
+def VariacionDelta_pago(delta_fare):
+    data = round(19038.8024*(1+delta_fare))
+    data = 'Tarifa de suscripción definida:  $' + str(data)
+    return data
+
+def VariacionDelta_servicio(delta_fare):
+    data = round(2165147*(1+delta_fare))
+    data = 'Costo del servicio exequial definido:  $' + str(data)
+    return data

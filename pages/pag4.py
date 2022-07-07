@@ -1,5 +1,6 @@
 #libraries
 
+from turtle import reset
 import pandas as pd
 import numpy as np 
 from dash_labs.plugins.pages import register_page
@@ -174,12 +175,12 @@ layout = dbc.Container([
 )
 def update_prediction(valor_mensual, valor_age, valor_sexo,nombre_UEN,valor_sucursal, n):
     if n == 0:
-        return ['Aquí obtendrá el valor de la predicción','porque']
+        return ['Aquí obtendrá el valor de la predicción',0]
     else:
         df_1 = predben.modelo_beneficiarios( df_prediccion_benef,int(valor_mensual) ,valor_age, valor_sexo,nombre_UEN,valor_sucursal)
         value= model_benef.predict(df_1)
-        print(value)
-        res = ["La cantidad de usuarios a afiliar en este contrato es de:  {}".format(round(value)),"porque!!"]
+        
+        res = ["La cantidad de usuarios predicha en este contrato es de : {}".format(round(value[0])),0]
       
        
-        return res,0
+        return res
