@@ -1,3 +1,4 @@
+from http import server
 import pandas as pd
 #import plotly.express as px  
 #import plotly.graph_objects as go
@@ -14,6 +15,8 @@ from callbacks import register_callbacks
 #importar regresiones 
 
 app = Dash(__name__,plugins=[dl.plugins.pages], external_stylesheets=[dbc.themes.FLATLY])
+
+server = app.server
 
 # -- Import and clean data (importing csv into pandas)
 #df = pd.read_csv("intro_bees.csv")
