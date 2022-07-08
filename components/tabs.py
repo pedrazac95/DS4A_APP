@@ -417,7 +417,7 @@ def build_tab_financial_info():
                 body=True,
                 color='light')
                 ]),
-            dbc.Col([dbc.Card([dbc.Label("Tarifa de suscripción: ($19000 por defecto)"),          
+            dbc.Col([dbc.Card([dbc.Label("Tarifa de suscripción: ($19039 por defecto)"),          
                 dbc.Input(
                     id="porc_val_susc", 
                     placeholder="Asigne el % de crecimiento o decrecimiento", 

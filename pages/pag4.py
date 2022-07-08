@@ -39,7 +39,7 @@ model_benef = joblib.load('data/model_pred_benf.pkl')
 layout = dbc.Container([
     dbc.Row([
         dbc.Col([
-            dbc.Card([ dbc.Alert("Consulte aqui información referente a las predicciones de la cantidad de beneficiarios potenciales en un contrato, dadas las caracaterísticas del titular del contrato, tales como mes de inscripción, edad, genero, categoría de trabajo y unidad territorial ", color="primary")])
+            dbc.Card([ dbc.Alert("Consulte aqui información referente a las predicciones de la cantidad de beneficiarios potenciales en un contrato, dadas las caracaterísticas del titular del contrato, tales como valor de contrato, edad, genero, categoría de trabajo y unidad territorial ", color="primary")])
         ])]),
 
     dbc.Row([
